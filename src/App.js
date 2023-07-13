@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+
+//npm install react-router-dom@6    // NOTE: Don't install the latest version
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import Products from './Pages/Products';
+import Services from "./Pages/Services";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import SignIn from "./Account/SignIn";
+import SignUp from "./Account/SignUp";
+
+import ProdCreate from './Pages/productsCRUD/ProdCreate';
+import ProdRead from './Pages/productsCRUD/ProdRead';
+import ProdUpdate from './Pages/productsCRUD/ProdUpdate';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <BrowserRouter>
+
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Products />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          <Route path='/products/create' element={<ProdCreate />}></Route>
+          <Route path='/products/update/:prodid' element={<ProdUpdate />}></Route>
+          <Route path='/products/read/:prodid' element={<ProdRead />}></Route>
+
+        </Routes>
+
+      </BrowserRouter>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 }
-
 export default App;

@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "NickName": "IronMan",
+      "FirstName": "Tony",
+      "LastName": "Stark",
+      "Place": "CA"
+    },
+    {
+      "id": 2,
+      "NickName": "SpiderMan",
+      "FirstName": "Peter",
+      "LastName": "Parker",
+      "Place": "NY"
+    },
+    {
+      "id": 3,
+      "NickName": "Batman",
+      "FirstName": "Bruce",
+      "LastName": "Wayne",
+      "Place": "GothamCity"
+    }
+  ]
+}

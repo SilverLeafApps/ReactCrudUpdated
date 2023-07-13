@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "SuperHeroName": "IronMan",
+      "FirstName": "Tony",
+      "LastName": "Stark",
+      "Place": "CA"
+    },
+    {
+      "id": 2,
+      "SuperHeroName": "SpiderMan",
+      "FirstName": "Peter",
+      "LastName": "Parker",
+      "Place": "NY"
+    },
+    {
+      "id": 3,
+      "SuperHeroName": "Batman",
+      "FirstName": "Bruce",
+      "LastName": "Wayne",
+      "Place": "GothamCity"
+    }
+  ]
+}
