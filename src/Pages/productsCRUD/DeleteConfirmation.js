@@ -2,8 +2,12 @@ import React from 'react'
 import { Modal, Button } from "react-bootstrap";
  
 const DeleteConfirmation = ({ showModal, hideModal, confirmModal, id, message }) => {
+
+
+
     return (
-      <div>
+      <React.Fragment>
+      <>
         <Modal show={showModal} onHide={hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Confirmation</Modal.Title>
@@ -18,7 +22,8 @@ const DeleteConfirmation = ({ showModal, hideModal, confirmModal, id, message })
           </Button>
         </Modal.Footer>
       </Modal>
-      </div>
+      </>
+      </React.Fragment>
     )
 }
  

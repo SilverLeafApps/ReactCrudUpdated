@@ -1,0 +1,36 @@
+.pageDisplay,
+.contact {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*background: linear-gradient(45deg, #ea4f4c 0%, #6d0019 100%); */
+     /* www.cssgradient.io*/
+  
+     /* background image settings */
+     background-position: center;
+     background-repeat: none;
+     background-size: cover;
+  
+  }
+
+.pageHdr {
+   background: linear-gradient(45deg, #0765c2 0%, #08e2d3 100%); 
+ }
+.pageHdrLight {
+  background: linear-gradient(45deg, #c8d4df 0%, #818085 100%); 
+}
+.contact {
+    background-image: url(./contact.jpg);
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 5.5;
+    line-height: 1.5;
+    color: #ffffff;
+    background-color: #ffffff;
+}
+
+

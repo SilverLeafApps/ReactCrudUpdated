@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import {toast } from 'react-toastify';
 
+import axios from "axios";
+
 //=========================================
 const ProdCreate = () => {
 
@@ -23,7 +25,16 @@ const ProdCreate = () => {
 
       const herosdata={id,NickName,FirstName,LastName,Place};
       
-      fetch("http://localhost:3004/products",{
+     axios.post('https://64c677800a25021fde91ac9a.mockapi.io/users',
+      {NickName,FirstName,LastName,Place}).then((res)=>{
+        //alert('Saved successfully.')
+        toast.success("Created successfully", {position: toast.POSITION.TOP_RIGHT, icon: "👍"});
+        navigate('/');
+      }).catch((err)=>{
+        console.log(err.message)
+      })  
+      
+  /* fetch("http://localhost:3004/products",{
         method:"POST",
         headers:{"content-type":"application/json"},
         body:JSON.stringify(herosdata)
@@ -33,8 +44,8 @@ const ProdCreate = () => {
         navigate('/');
       }).catch((err)=>{
         console.log(err.message)
-      })
-
+      }) 
+ */
     }
 
     return (

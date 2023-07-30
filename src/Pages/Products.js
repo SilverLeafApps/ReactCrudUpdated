@@ -4,6 +4,8 @@ import axios from "axios";
 
 import {toast } from 'react-toastify';
 
+import "bootstrap/dist/css/bootstrap.min.css"; //this is the magic line of code
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,6 +20,8 @@ import Paper from "@mui/material/Paper";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import DeleteConfirmation from "./productsCRUD/DeleteConfirmation";
+//https://codemoto.io/coding/react/react-delete-confirmation-modal
+//https://react-bootstrap.netlify.app/docs/components/modal
 //==========================
 
 const _jsonserver_api ="http://localhost:3004/products";//json-server --watch src/UsersDB/users.json --port 3004
@@ -33,28 +37,38 @@ const Products = () => {
 
       //---------- modal dialog confirm box -----
     const [id, setId] = useState(null);
-    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
     const [deleteMessage, setDeleteMessage] = useState(null);
+    const [canShowModalBox, setDisplayConfirmationModal] = useState(false);
 
       const hideConfirmationModal = () => {
         setDisplayConfirmationModal(false);
       };
 
     const submitDelete = (id) =>{
-            fetch("http://localhost:3004/products/" + id, {method: "DELETE"})
+
+        axios.delete("https://64c677800a25021fde91ac9a.mockapi.io/users/"+ id)
+        .then(() => {
+            toast.warn("Deleted successfully", {position: toast.POSITION.TOP_RIGHT});
+            window.location.reload();
+        }).catch((err) => {
+            console.log(err.message);
+        }) 
+        
+/*             fetch("http://localhost:3004/products/" + id, {method: "DELETE"})
             .then((res) => {
                 //alert('Deleted successfully.')
                 toast.warn("Deleted successfully", {position: toast.POSITION.TOP_RIGHT});
                 window.location.reload();})
             .catch((err) => {
                 console.log(err.message)
-            })     
+            })     */ 
     };
 
-    const DeleteBtnClick_ModalDlg = (id) => {
+    const showConfirmationModal = (id) => {
+        setDisplayConfirmationModal(true);  
         setId(id); 
         setDeleteMessage("Are you sure you want to delete this item = " + id);
-        setDisplayConfirmationModal(true);    
+   
       };
   //------------------------------------------------
     const DeleteBtnClick_OLD = (id) => {
@@ -66,7 +80,7 @@ const Products = () => {
                 window.location.reload();})
             .catch((err) => {
                 console.log(err.message)
-            })
+            }) 
         }
     }
     //--------------------------------------
@@ -96,7 +110,8 @@ const Products = () => {
     }
 
     const loadUsers_fetch = async () => {
-        fetch("http://localhost:3004/products")
+        //fetch("http://localhost:3004/products")
+       fetch("https://64c677800a25021fde91ac9a.mockapi.io/users")
         .then((res) => {
             return res.json(); //first convert to json format
         }).then((resp) => {
@@ -116,56 +131,58 @@ const Products = () => {
     
 
    return (
-        <div>
-            <div>
+        <div style={{marginTop:"9.5vh"}}>
                 <div>
-                    <h2>Product Listing</h2>
+                    <h2>Product Details</h2>
                 </div>
+               
                 <div>
-                    <div>
-                        <Button
-                          onClick={() => { AddNewBtnClick() }} 
-                          className="btn btn-success">
-                            Add New (+)
-                        </Button>
-                    </div>
                     <TableContainer component={Paper}>
-                    <table class="table table-striped">
-                    <TableHead>
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>NickName</TableCell>
-                                <TableCell>FName</TableCell>
-                                <TableCell>LName</TableCell>
-                                <TableCell>Place</TableCell>
-                                <TableCell>ACTIONS</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {productsdata &&
-                                productsdata.map(item => (
-                                    <TableRow key={item.id}>
-                                        <TableCell>{item.id}</TableCell>
-                                        <TableCell>{item.NickName}</TableCell>
-                                        <TableCell>{item.FirstName}</TableCell>
-                                        <TableCell>{item.LastName}</TableCell>
-                                        <TableCell>{item.Place}</TableCell>
-                                        <TableCell>
-                                             <Button onClick={() => { ReadBtnClick(item.id) }} className="btn btn-primary">View</Button>
-                                             <Button onClick={() => { UpdateBtnClick(item.id) }} className="btn btn-success">Edit</Button>
-                                             {/* <a onClick={() => { DeleteBtnClick_OLD(item.id) }} className="btn btn-danger">Delete</a>*/ }
-                                             <Button onClick={() => { DeleteBtnClick_ModalDlg(item.id) }} className="btn btn-danger">Delete</Button>
-                                        </TableCell>
+                            <div>
+                                <Button
+                                onClick={() => { AddNewBtnClick() }} 
+                                className="btn btn-success">
+                                    Add New (+)
+                                </Button>
+                            </div>
+                            <table class="table table-striped">
+                            <TableHead>
+
+                                    <TableRow>
+                                        <TableCell>ID</TableCell>
+                                        <TableCell>NickName</TableCell>
+                                        <TableCell>FName</TableCell>
+                                        <TableCell>LName</TableCell>
+                                        <TableCell>Place</TableCell>
+                                        <TableCell>ACTIONS</TableCell>
                                     </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </table>
+                                </TableHead>
+                                <TableBody>
+                                    {productsdata &&
+                                        productsdata.map(item => (
+                                            <TableRow key={item.id}>
+                                                <TableCell>{item.id}</TableCell>
+                                                <TableCell>{item.NickName}</TableCell>
+                                                <TableCell>{item.FirstName}</TableCell>
+                                                <TableCell>{item.LastName}</TableCell>
+                                                <TableCell>{item.Place}</TableCell>
+                                                <TableCell>
+                                                    <Button onClick={() => { ReadBtnClick(item.id) }} className="btn btn-primary">View</Button>
+                                                    <Button onClick={() => { UpdateBtnClick(item.id) }} className="btn btn-success">Edit</Button>
+                                                    {/* <a onClick={() => { DeleteBtnClick_OLD(item.id) }} className="btn btn-danger">Delete</a>*/ }
+                                                    <Button onClick={() => { showConfirmationModal(item.id) }} className="btn btn-danger">Delete</Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    }
+                                </TableBody>
+                            </table>
+                            
+                            <DeleteConfirmation showModal={canShowModalBox} hideModal={hideConfirmationModal} confirmModal={submitDelete} id={id} message={deleteMessage}  />
                     </TableContainer>
-                    <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal} id={id} message={deleteMessage}  />
                 </div>
+
             </div>
-        </div>
     ); 
     //---------------------------------------------------
 }

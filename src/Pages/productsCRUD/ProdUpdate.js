@@ -3,16 +3,36 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {toast } from 'react-toastify';
 
+import axios from "axios";
 //=============================
 
 const ProdUpdate = () => {
     const { prodid } = useParams();
 
+    const[id,idchange]=useState("");
+    const[NickName,hnamechange]=useState("");
+    const[FirstName,fnamechange]=useState("");
+    const[LastName,lnamechange]=useState("");
+    const[Place,pnamechange]=useState("");
+    const[active,activechange]=useState(true);
+    const[validation,valchange]=useState(false);
 
     //const [empdata, empdatachange] = useState({});
 
     useEffect(() => {
-        fetch("http://localhost:3004/products/" + prodid).then((res) => {
+
+        axios.get("https://64c677800a25021fde91ac9a.mockapi.io/users/"+ prodid).then((resp) => {
+            idchange(resp.data.id);
+            hnamechange(resp.data.NickName);
+            fnamechange(resp.data.FirstName);
+            lnamechange(resp.data.LastName);
+            pnamechange(resp.data.Place);
+        }).catch((err) => {
+            console.log(err.message);
+        }) 
+
+
+       /*  fetch("http://localhost:3004/products/" + prodid).then((res) => {
             return res.json();
         }).then((resp) => {
             idchange(resp.id);
@@ -22,16 +42,10 @@ const ProdUpdate = () => {
             pnamechange(resp.Place);
         }).catch((err) => {
             console.log(err.message);
-        })
+        }) */
     }, []);
 
-    const[id,idchange]=useState("");
-    const[NickName,hnamechange]=useState("");
-    const[FirstName,fnamechange]=useState("");
-    const[LastName,lnamechange]=useState("");
-    const[Place,pnamechange]=useState("");
-    const[active,activechange]=useState(true);
-    const[validation,valchange]=useState(false);
+  
 
 
     const navigate=useNavigate();
@@ -44,11 +58,15 @@ const ProdUpdate = () => {
       const proddata={id,NickName,FirstName,LastName,Place};
       
 
-      fetch("http://localhost:3004/products/"+ prodid,{
+     /*  fetch("http://localhost:3004/products/"+ prodid,{
         method:"PUT",
         headers:{"content-type":"application/json"},
         body:JSON.stringify(proddata)
-      }).then((res)=>{
+      }) */
+      axios.put("https://64c677800a25021fde91ac9a.mockapi.io/users/"+ prodid,
+      {NickName,FirstName,LastName,Place}
+      )
+      .then((res)=>{
         //alert('Saved successfully.')
         toast.success("Updated successfully", {position: toast.POSITION.TOP_RIGHT});
         navigate('/');

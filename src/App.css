@@ -1,5 +1,12 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.AppBody {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.4;
+  background: #fff;
+  color: #444;
 }
 
 .App-logo {
@@ -36,3 +43,5 @@
     transform: rotate(360deg);
   }
 }
+
+

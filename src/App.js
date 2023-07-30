@@ -1,7 +1,7 @@
 import Header from "./Header";
-
 //npm install react-router-dom@6    // NOTE: Don't install the latest version
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+//json-server --watch products.json --port 3004
 
 import Products from './Pages/Products';
 import Services from "./Pages/Services";
@@ -16,6 +16,8 @@ import ProdUpdate from './Pages/productsCRUD/ProdUpdate';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css'
 
 function App() {
   return (
@@ -42,7 +44,9 @@ function App() {
         </Routes>
 
       </BrowserRouter>
+
       <ToastContainer autoClose={1000} />
+
     </div>
   );
 }
