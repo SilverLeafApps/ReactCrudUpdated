@@ -5,6 +5,7 @@ import {toast } from 'react-toastify';
 
 import axios from "axios";
 
+
 //=========================================
 const ProdCreate = () => {
 
@@ -30,6 +31,10 @@ const ProdCreate = () => {
         //alert('Saved successfully.')
         toast.success("Created successfully", {position: toast.POSITION.TOP_RIGHT, icon: "👍"});
         navigate('/');
+        //navigate('/', { state: { user: 'abc' }})
+        //<button onClick={() => navigate(-1)}>Go back</button>
+        //<button onClick={() => navigate(1)}>Go forward</button>
+        
       }).catch((err)=>{
         console.log(err.message)
       })  

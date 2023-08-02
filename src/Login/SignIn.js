@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -8,14 +9,49 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
+import {toast } from 'react-toastify';
+import {useNavigate } from "react-router-dom";
+//import swal from 'sweetalert';
+//import cors from 'cors';
+
+
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
+
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  const navigate = useNavigate();
+
+
+   const handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    const credentials={username,password};
+    console.log(credentials);
+
+   /*  const response = await loginUser({
+       username,
+       password
+    }); */
+
+    fetch("https://64c677800a25021fde91ac9a.mockapi.io/login",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify(credentials)
+    }).then((res)=>{
+      //alert('Saved successfully.')
+      //if ('accessToken' in res) {
+      console.log('response')
+      console.log(res)
+      toast.success("Created successfully", {position: toast.POSITION.TOP_RIGHT, icon: "👍"});
+      navigate('/');
+      
+    }).catch((err)=>{
+      console.log(err.message)
+    }) 
+
   };
 
   return (
@@ -41,6 +77,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={e => setUserName(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -51,11 +88,13 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          
           <Button
             type="submit"
             fullWidth

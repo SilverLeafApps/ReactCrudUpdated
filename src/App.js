@@ -7,8 +7,8 @@ import Products from './Pages/Products';
 import Services from "./Pages/Services";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
-import SignIn from "./Account/SignIn";
-import SignUp from "./Account/SignUp";
+import SignIn from "./Login/SignIn";
+import SignUp from "./Login/SignUp";
 
 import ProdCreate from './Pages/productsCRUD/ProdCreate';
 import ProdRead from './Pages/productsCRUD/ProdRead';
@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 
 function App() {
+  
   return (
     <div className="App">
 
